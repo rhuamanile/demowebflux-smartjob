@@ -5,7 +5,7 @@
 Microservice that generate token and create new users
 
 ## Diagram of solution
-![Diagram of solution](solution-diagram.png")
+![Diagram of solution](solution-diagram.png)
 
 ### Instructions for consume API
 > ❗Important: for consume this API, first you need generate JWT Token
