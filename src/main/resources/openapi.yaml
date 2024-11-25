@@ -1,0 +1,106 @@
+openapi: 3.0.1
+info:
+  title: Users API
+  description: API for creation users
+  version: 1.0.0
+paths:
+  /users:
+    post:
+      summary: Create a new user
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        '201':
+          description: User created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/UserResponse'
+                  - $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /generateToken:
+    get:
+      summary: Endpoint for token generation
+      operationId: generateToken
+      parameters:
+        - name: username
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Token generated
+          content:
+            text/plain:
+              schema:
+                type: string
+components:
+  schemas:
+    UserRequest:
+      type: object
+      required:
+        - email
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+          pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.cl$"
+        password:
+          type: string
+          pattern: "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$"
+        phones:
+          type: array
+          items:
+            $ref: '#/components/schemas/Phone'
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        createdDate:
+          type: string
+          format: date-time
+        modifiedDate:
+          type: string
+          format: date-time
+        lastLogin:
+          type: string
+          format: date-time
+        token:
+          type: string
+        inactive:
+          type: boolean
+    Phone:
+      type: object
+      properties:
+        number:
+          type: string
+        citycode:
+          type: string
+        contrycode:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        mensaje:
+          type: string
