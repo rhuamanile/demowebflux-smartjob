@@ -4,7 +4,12 @@
 
 Microservice that generate token and create new users
 
-### Instructions
+## Diagram of solution
+![Diagram of solution](/solution-diagram.png")
+
+### Instructions for consume API
+> ❗Important: for consume this API, first you need generate JWT Token
+
 - Download and configure jdk 17, maven 3.8.8 in IDE
 - Compile microservice with maven command:
 ```
